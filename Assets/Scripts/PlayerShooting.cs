@@ -14,6 +14,7 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField] private float _trailTime = 0.1f; 
     [SerializeField] private Transform _bulletSpawnPoint;
 
+    [SerializeField] private Animator _pistolAnimator;
     private float _coolDownReload=1.5f;
     private int _amountBullets =7;
     private int _maxBulletOnClip =7;
@@ -92,6 +93,7 @@ public class PlayerShooting : MonoBehaviour
     private void Shoot()
     {
         _amountBullets--;
+        _pistolAnimator.SetTrigger("Shoot");
         StartCoroutine(ShootCoolDown());
         _eventManager.ChangePlayerAmmo(_amountBullets, _maxBulletOnClip);
     }

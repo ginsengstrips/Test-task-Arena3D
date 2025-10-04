@@ -2947,6 +2947,7 @@ MonoBehaviour:
     type: 3}
   _trailTime: 0.1
   _bulletSpawnPoint: {fileID: 644407358}
+  _pistolAnimator: {fileID: 4952727494206762}
 --- !u!114 &999501721
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4624,6 +4625,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4952727494206761}
+  - component: {fileID: 4952727494206762}
   m_Layer: 0
   m_Name: M1911
   m_TagString: Untagged
@@ -4782,6 +4784,27 @@ Transform:
   - {fileID: 644407358}
   m_Father: {fileID: 330585546}
   m_LocalEulerAnglesHint: {x: 0, y: 194.991, z: 0}
+--- !u!95 &4952727494206762
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1694449883039037}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f960d5442b913ac4aabfaebf2aeb433a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!4 &4994603169157245
 Transform:
   m_ObjectHideFlags: 0
