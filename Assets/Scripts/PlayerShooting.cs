@@ -24,7 +24,7 @@ public class PlayerShooting : MonoBehaviour
 
     private bool _isAim;
     private float _normalFOV=60f;
-    private float _aimFOV = 40f;
+    private float _aimFOV = 45f;
     private void Awake()
     {
         _playerInput = GameInputManager.instance.PlayerInput;
