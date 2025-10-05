@@ -5,15 +5,22 @@ public class EventManager : MonoBehaviour
 {
     public event Action OnPlayerDeath;
     public event Action<int> OnPlayerHealthChanged;
+    public event Action<int> OnPlayerHealthRefill;
     public event Action<int, int> OnPlayerAmmoChanged;
     public event Action<int> OnPlayerDamaged;
     public event Action<int, int> OnNumberWaveChanged;
+    public event Action OnWaveChangedSound;
+    public event Action OnSpawnedBonus;
     public event Action<int, float, int> OnEnemySpawn;
-    public event Action OnEnemySpawned;
     public event Action OnEnemyDeath;
     public event Action<int,int> OnChangeEnemyUI;
     public event Action<int, float> OnChangeWaveUI;
     public event Action<float> OnReload;
+    public event Action OnReloadSound;
+    private void Start()
+    {
+        Time.timeScale = 1f;
+    }
     public void PlayerDeath()
     {
         OnPlayerDeath?.Invoke();
@@ -36,18 +43,16 @@ public class EventManager : MonoBehaviour
     public void NumberWaveChanged(int numberWave, int amountEnemies)
     {
         OnNumberWaveChanged?.Invoke(numberWave, amountEnemies);
+        OnWaveChangedSound?.Invoke();
     }
     public void Reload(float reloadTime)
     {
         OnReload?.Invoke(reloadTime);
+        OnReloadSound?.Invoke();
     }
     public void SpawnEnemy(int amountEnemies, float coolDownSpawn, int numberWave)
     {
         OnEnemySpawn?.Invoke(amountEnemies, coolDownSpawn, numberWave);
-    }
-    public void SpawnedEnemy()
-    {
-        OnEnemySpawned?.Invoke();
     }
     public void DeathEnemy()
     {
@@ -60,5 +65,11 @@ public class EventManager : MonoBehaviour
     public void ChangeWaveUI(int numberWave, float waveTimer)
     {
         OnChangeWaveUI?.Invoke(numberWave,waveTimer);
+        if (numberWave % 2 == 0)
+            OnSpawnedBonus?.Invoke();
+    }
+    public void RefillPlayerHealth(int refillHealthAmount)
+    {
+        OnPlayerHealthRefill?.Invoke(refillHealthAmount);
     }
 }

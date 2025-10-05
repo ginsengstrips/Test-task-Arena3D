@@ -12,12 +12,10 @@ public class WaveModificator : MonoBehaviour
     private int _currentEnemyRemains = 0;
     private void OnEnable()
     {
-       // _eventManager.OnEnemySpawned += OnEnemySpawned;
         _eventManager.OnEnemyDeath += OnKillEnemies;
     }
     private void OnDisable()
     {
-        //_eventManager.OnEnemySpawned -= OnEnemySpawned;
         _eventManager.OnEnemyDeath -= OnKillEnemies;
     }
     private void Start()
@@ -27,10 +25,6 @@ public class WaveModificator : MonoBehaviour
     private void SpawnEnemies()
     {
         _eventManager.SpawnEnemy(_amountSpawnEnemy, _coolDownSpawn,_numberWave);
-    }
-    public void OnEnemySpawned()
-    {
-        //_currentEnemyAmount++;
     }
     private void OnKillEnemies()
     {
@@ -44,12 +38,19 @@ public class WaveModificator : MonoBehaviour
     private void NextWave()
     {
         _numberWave++;
+        if (_numberWave <= 3)
+            _coolDownSpawn = 3f;
+        else if(_numberWave <= 4)
+            _coolDownSpawn = 2f;
+        else
+            _coolDownSpawn = 1.2f;
         _amountSpawnEnemy = Mathf.CeilToInt(_numberWave * _waveAmountModifier);
         _currentEnemyRemains = _amountSpawnEnemy;
         Invoke(nameof(SpawnEnemies), _waitTimeBeforeNewWave);
         _eventManager.NumberWaveChanged(_numberWave,_amountSpawnEnemy);
         _eventManager.ChangeWaveUI(_numberWave, _waitTimeBeforeNewWave);
         _eventManager.ChangeEnemyUI(_currentEnemyRemains, _amountSpawnEnemy);
+        
     }
 
 }

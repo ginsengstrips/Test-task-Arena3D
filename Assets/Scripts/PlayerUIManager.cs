@@ -10,6 +10,12 @@ public class PlayerUIManager : MonoBehaviour
     [SerializeField] private Image _reloadIcon;
     [SerializeField] private GameObject _loseCanvas, playerCanvas;
     [SerializeField] private TextMeshProUGUI _ammoText, _waveNumberText, _aliveEnemyText, _nextWaveTimer;
+    private void Start()
+    {
+        Time.timeScale = 1f;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
     private void OnEnable()
     {
         _eventManager.OnChangeWaveUI += ChangeWaveNumber;
@@ -84,5 +90,7 @@ public class PlayerUIManager : MonoBehaviour
     {
         playerCanvas.SetActive(false);
         _loseCanvas.SetActive(true);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 }

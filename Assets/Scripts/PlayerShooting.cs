@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 public class PlayerShooting : MonoBehaviour
 {
     [SerializeField] private EventManager _eventManager;
+    [SerializeField] private SoundManager _soundManager;
+    [SerializeField] private TrailObjectPool _trailPool;
     [SerializeField] private int _playerDamage;
     [SerializeField] private float _coolDownShoot = 0.5f;
     private bool _canShoot = true;
@@ -19,6 +21,10 @@ public class PlayerShooting : MonoBehaviour
     private int _amountBullets =7;
     private int _maxBulletOnClip =7;
     private bool _isReloading;
+
+    private bool _isAim;
+    private float _normalFOV=60f;
+    private float _aimFOV = 40f;
     private void Awake()
     {
         _playerInput = GameInputManager.instance.PlayerInput;
@@ -26,10 +32,12 @@ public class PlayerShooting : MonoBehaviour
     private void OnEnable()
     {
         _playerInput.Player.Reload.performed += Reload;
+        _playerInput.Player.Aim.performed += Aim;
     }
     private void OnDisable()
     {
         _playerInput.Player.Reload.performed -= Reload;
+        _playerInput.Player.Aim.performed -= Aim;
     }
     private void Update()
     {
@@ -70,31 +78,34 @@ public class PlayerShooting : MonoBehaviour
     }
     private IEnumerator SpawnTrail(Vector3 hitPoint)
     {
-        if (_bulletTrail == null) yield break;
+        if (_trailPool == null) yield break;
 
-        TrailRenderer trail = Instantiate(_bulletTrail, _bulletSpawnPoint.position, Quaternion.identity);
-        trail.gameObject.SetActive(true);
-
+        TrailRenderer trail = _trailPool.GetTrail(_bulletSpawnPoint.position);
+        yield return null;
         float time = 0f;
         Vector3 startPosition = trail.transform.position;
-
         while (time < 1f)
         {
+            if (trail == null) 
+                yield break;
             trail.transform.position = Vector3.Lerp(startPosition, hitPoint, time);
             time += Time.deltaTime / _trailTime;
             yield return null;
         }
-
         trail.transform.position = hitPoint;
-
-        yield return new WaitForSeconds(trail.time);
-        Destroy(trail.gameObject);
+        if (trail != null)
+        {
+            trail.transform.position = hitPoint;
+            yield return new WaitForSeconds(trail.time);
+            _trailPool.ReturnTrail(trail);
+        }
     }
     private void Shoot()
     {
         _amountBullets--;
         _pistolAnimator.SetTrigger("Shoot");
         StartCoroutine(ShootCoolDown());
+        _soundManager.ShotSound();
         _eventManager.ChangePlayerAmmo(_amountBullets, _maxBulletOnClip);
     }
     private void Reload(InputAction.CallbackContext obj)
@@ -102,15 +113,22 @@ public class PlayerShooting : MonoBehaviour
         if(!_isReloading && _amountBullets != _maxBulletOnClip)
             StartCoroutine(ReloadCoroutine());
     }
+    private void Aim(InputAction.CallbackContext obj)
+    {
+        _isAim = !_isAim;
+        Camera.main.fieldOfView = _isAim ? _normalFOV : _aimFOV;
+    }
     private IEnumerator ReloadCoroutine()
     {
         _isReloading = true;
+        _pistolAnimator.SetBool("Reload", _isReloading);
         _amountBullets = 0;
         _eventManager.Reload(_coolDownReload);
         yield return new WaitForSeconds(_coolDownReload);
         _amountBullets = _maxBulletOnClip;
         _eventManager.ChangePlayerAmmo(_amountBullets, _maxBulletOnClip);
         _isReloading = false;
+        _pistolAnimator.SetBool("Reload", _isReloading);
         _canShoot = true;
     }
 }

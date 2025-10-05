@@ -8,20 +8,26 @@ public class PlayerHealthSystem : MonoBehaviour
     private void OnEnable()
     {
         _eventManager.OnPlayerDamaged += GetDamage;
+        _eventManager.OnPlayerHealthRefill += RefillHealth;
     }
     private void OnDisable()
     {
         _eventManager.OnPlayerDamaged -= GetDamage;
+        _eventManager.OnPlayerHealthRefill -= RefillHealth;
     }
-    public void GetDamage(int damage)
+    private void GetDamage(int damage)
     {
         _health -= damage;
         _eventManager.ChangePlayerHealth(_health);
-        Debug.Log("_health " + _health);
         if(_health <= 0)
         {
             Death();
         }
+    }
+    private void RefillHealth(int refillAmountHealth)
+    {
+        _health = Mathf.Clamp(_health + refillAmountHealth, 0, 100);
+        _eventManager.ChangePlayerHealth(_health);
     }
     private void Death()
     {
