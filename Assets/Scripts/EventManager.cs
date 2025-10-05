@@ -6,6 +6,7 @@ public class EventManager : MonoBehaviour
     public event Action OnPlayerDeath;
     public event Action<int> OnPlayerHealthChanged;
     public event Action<int> OnPlayerHealthRefill;
+    public event Action OnRefillHealthSound;
     public event Action<int, int> OnPlayerAmmoChanged;
     public event Action<int> OnPlayerDamaged;
     public event Action<int, int> OnNumberWaveChanged;
@@ -71,5 +72,6 @@ public class EventManager : MonoBehaviour
     public void RefillPlayerHealth(int refillHealthAmount)
     {
         OnPlayerHealthRefill?.Invoke(refillHealthAmount);
+        OnRefillHealthSound?.Invoke();
     }
 }

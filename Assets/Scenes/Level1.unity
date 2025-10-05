@@ -5639,6 +5639,7 @@ MonoBehaviour:
   _shotSound: {fileID: 8300000, guid: 07807806fd514d8478c9220c45fed191, type: 3}
   _waveChangeSound: {fileID: 8300000, guid: 66cd92f6a9b22a44da851f76ed6e7c9e, type: 3}
   _reloadSound: {fileID: 8300000, guid: b9b55f3a8cb14484eb14d81e086ced1f, type: 3}
+  _refillSound: {fileID: 8300000, guid: 13dbd3667c6c40b45a82524e9301e721, type: 3}
 --- !u!82 &1444397903
 AudioSource:
   m_ObjectHideFlags: 0
@@ -7445,10 +7446,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 994180037}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.49600002, y: 0.492}
-  m_AnchorMax: {x: 0.504, y: 0.508}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0.28899956, y: 0.28929996}
+  m_AnchorMin: {x: 0.45600003, y: 0.4261383}
+  m_AnchorMax: {x: 0.5438842, y: 0.570717}
+  m_AnchoredPosition: {x: 0, y: 1}
+  m_SizeDelta: {x: 0, y: -0.79260254}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1948883807
 MonoBehaviour:
@@ -7470,7 +7471,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: 9644bb3c654fd7a40b92de3a318729c2, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

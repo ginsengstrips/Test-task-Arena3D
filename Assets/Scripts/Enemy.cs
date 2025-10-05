@@ -105,6 +105,7 @@ public class Enemy : MonoBehaviour, IDamageable
             _moveSpeed = 8f;
             _enemyAnimator.SetBool("Run", true);
         }
+        
     }
     private void DisableModel()
     {

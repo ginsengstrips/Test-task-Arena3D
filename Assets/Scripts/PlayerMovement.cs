@@ -48,8 +48,8 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector2 playerInput = _playerInput.Player.Movement.ReadValue<Vector2>();
         Vector3 direction = new Vector3(playerInput.x, 0, playerInput.y);
-        direction = Camera.main.transform.TransformDirection(direction);
-        direction.y = 0;
+        float cameraYRotation = Camera.main.transform.eulerAngles.y;
+        direction = Quaternion.Euler(0, cameraYRotation, 0) * direction;
         if (direction.magnitude > 1f)
             direction.Normalize();
         if (_controller.isGrounded)
