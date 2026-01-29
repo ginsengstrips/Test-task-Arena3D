@@ -13,3 +13,8 @@
 - **ПКМ**: Прицеливание  
 - **R**: Перезарядка оружия
 - **Space**: Прыжок
+
+## Изначальное ТЗ
+<img width="442" height="640" alt="image" src="https://github.com/user-attachments/assets/bfc495f2-7ba2-464f-8293-e44a3068d6c1" />
+<img width="410" height="415" alt="image" src="https://github.com/user-attachments/assets/bec97232-0488-4a5c-8bbf-c881330bc8a6" />
+
